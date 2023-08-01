@@ -1,0 +1,31 @@
+Given a linked list of N nodes such that it may contain a loop.
+
+A loop here means that the last node of the link list is connected to the node at position X(1-based index). If the link list does not have any loop, X=0.
+
+Remove the loop from the linked list, if it is present, i.e. unlink the last node which is forming the loop.
+
+
+class Solution
+{
+    //Function to remove a loop in the linked list.
+    public static void removeLoop(Node head){
+        // code here
+        // remove the loop without losing any nodes
+        Map<Node,String> mp=new HashMap<>();
+        Node prev=null;
+        while(head!=null)
+        {
+            if(!mp.containsKey(head))
+            {
+                mp.put(head,"hello");
+                prev=head;
+            }
+            else
+            {
+                prev.next=null;
+            }
+            head=head.next;
+        }
+    
+    }
+}
