@@ -1,0 +1,13 @@
+package demo;
+import java.util.*;
+public class p2 
+{
+	public static void main(String args[])
+	{
+		List<Integer> lst=new ArrayList<Integer>(Arrays.asList(10,15,8,49,25,98,98,32,15));
+		Set<Integer> set=new HashSet<Integer>();
+		
+		lst.stream().filter(p->!set.add(p)).forEach(t->System.out.println(t));
+		
+	}
+ }
