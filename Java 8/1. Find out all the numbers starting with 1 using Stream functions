@@ -1,0 +1,12 @@
+package demo;
+import java.util.*;
+public class p2 
+{
+	public static void main(String args[])
+	{
+		List<Integer> lst=new ArrayList<Integer>(Arrays.asList(10,15,8,49,25,98,32));
+		
+		lst.stream().map(p-> Integer.toString(p)).filter(s->s.charAt(0)=='1').forEach(p->System.out.println(p));
+		
+	}
+}
