@@ -1,0 +1,6 @@
+public static void main(String args[])
+	{
+		List<Integer> lst=new ArrayList<Integer>(Arrays.asList(10,15,8,49,25,98,98,32,15));
+		
+		lst.stream().findFirst().ifPresent(System.out::println);	
+	}
