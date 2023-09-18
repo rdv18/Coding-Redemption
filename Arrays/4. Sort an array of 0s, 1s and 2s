@@ -1,0 +1,35 @@
+
+Given an array of size N containing only 0s, 1s, and 2s; sort the array in ascending order.
+
+https://practice.geeksforgeeks.org/problems/sort-an-array-of-0s-1s-and-2s4231/1?page=1&category[]=Arrays&sprint=a663236c31453b969852f9ea22507634&sortBy=submissions
+
+class Solution
+{
+    public static void sort012(int a[], int n)
+    {
+        // code here 
+        int []count=new int[3];
+        for(int i=0;i<n;i++)
+        {
+            count[a[i]]++;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            if(count[0]>0)
+            {
+                a[i]=0;
+                count[0]--;
+            }
+            else if(count[1]>0)
+            {
+                a[i]=1;
+                count[1]--;
+            }
+            else{
+                a[i]=2;
+                count[2]--;
+            }
+        }
+    }
+}
