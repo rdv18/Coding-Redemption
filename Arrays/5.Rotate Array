@@ -1,0 +1,21 @@
+
+Link:https://www.codingninjas.com/studio/problems/rotate-array_1230543?utm_source=youtube&utm_medium=affiliate&utm_campaign=parikh_youtube&leftPanelTabValue=PROBLEM
+
+public class Solution {
+	public static ArrayList<Integer> rotateArray(ArrayList<Integer> arr, int k) {
+        // Write your code here.
+        int temp=0;
+
+        ArrayList<Integer> newArray=new ArrayList<>();
+        for(int i=k;i<arr.size();i++)
+        {
+           newArray.add(arr.get(i));
+        }
+        for(int i=0;i<k;i++)
+        {
+            newArray.add(arr.get(i));
+        }
+
+        return newArray;
+    }
+}
