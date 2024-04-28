@@ -1,0 +1,37 @@
+/*
+
+Link: https://www.naukri.com/code360/problems/1112654?utm_source=youtube&utm_medium=affiliate&utm_campaign=parikh_youtube&leftPanelTabValue=PROBLEM
+
+Problem statement
+You are given a sorted array ‘arr’ of ‘n’ numbers such that every number occurred twice in the array except one, which appears only once.
+
+
+Return the number that appears once.
+
+Example:
+Input: 'arr' = [1,1,2,2,4,5,5]
+
+Output: 4 
+
+*/
+
+import java.util.ArrayList;
+public class Solution
+{
+    public static int singleNonDuplicate(ArrayList<Integer> arr)
+    {
+        //    Write your code here.
+
+        
+        for(int i=0;i<arr.size()-1;i=i+2)
+        {
+            if(arr.get(i)-arr.get(i+1)!=0)
+            {
+                return arr.get(i);
+            }
+
+        }
+        return arr.get(arr.size()-1);
+
+    }
+}
