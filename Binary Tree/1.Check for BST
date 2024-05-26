@@ -1,0 +1,40 @@
+/*
+https://www.geeksforgeeks.org/problems/check-for-bst/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+Given the root of a binary tree. Check whether it is a BST or not.
+Note: We are considering that BSTs can not contain duplicate Nodes.
+
+*/
+
+
+class Solution
+{
+    //Function to check whether a Binary Tree is BST or not.
+    
+   int min=0;
+   boolean res=true;
+    
+    void bst(Node root)
+    {
+        if(root==null) return ;
+        bst(root.left);
+        
+        if(root.data>min)
+        {
+            min=root.data;
+        }
+        else{
+        	res=false;
+        	return;
+        }
+        bst(root.right);
+ 
+    }
+    boolean isBST(Node root)
+    {
+        // code here.
+        bst(root);
+        return res;
+        
+    }
+}
