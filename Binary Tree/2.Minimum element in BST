@@ -1,0 +1,27 @@
+/*
+https://www.geeksforgeeks.org/problems/minimum-element-in-bst/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=bottom_sticky_on_article
+
+Given the root of a Binary Search Tree. The task is to find the minimum valued element in this given BST.
+
+*/
+
+class Solution {
+    // Function to find the minimum element in the given BST.
+    
+    int bst(Node root)
+    {
+        if(root==null) return -1;
+        
+        while(root.left!=null)
+        {
+            root=root.left;
+        }
+        return root.data;
+        
+    }
+    int minValue(Node root) {
+        // code here
+        
+        return bst(root);
+    }
+}
