@@ -1,0 +1,60 @@
+/*
+https://www.naukri.com/code360/problems/move-all-negative-numbers-to-beginning-and-positive-to-end_1112620?utm_source=youtube&utm_medium=affiliate&utm_campaign=parikh_youtube&leftPanelTabValue=PROBLEM
+
+Problem statement
+You are given an array 'ARR' consisting of 'N' integers. You need to rearrange the array elements such that all negative numbers appear before all positive numbers.
+
+Note:
+The order of elements in the resulting array is not important.
+Example:
+Let the array be [1, 2, -3, 4, -4, -5]. On rearranging the array such that all negative numbers appear before all positive numbers we get the resulting array [-3, -5, -4, 2, 4, 1].
+
+
+Time Limit: 1 sec
+Sample Input 1:
+2
+5
+1 -4 -2 5 3
+2
+2 1    
+Sample Output 1:
+Yes
+Yes
+Explanation for Sample Input 1:
+For the first test case we have, array: [1, -4, -2, 5, 3] and N = 5. On rearranging the array such that all negative numbers appear before all positive numbers we get the resulting array [-2, -4, 1, 5, 3].
+
+For the second test case we have, array: [2, 1] and N = 2. There are no negative numbers. Hence, we do not require any rearrangement.
+*/
+
+
+public class Solution {
+    public static int[] separateNegativeAndPositive(int a[]) {
+
+        int l=0;
+        int r=a.length-1;
+        int temp;
+
+        while(l<=r)
+        {
+            if(a[l]>0 && a[r]<0)
+            {
+                temp=a[l];
+                a[l]=a[r];
+                a[r]=temp;
+                l++;
+                r--;
+            }
+
+            if(a[l]<0)
+            {
+                l++;
+            }
+            if(a[r]>0)
+            {
+                r--;
+            }
+        }
+        return a;
+
+    }
+}
