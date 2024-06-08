@@ -1,0 +1,81 @@
+package coding;
+
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
+
+class Edge{
+	int w;
+	int v;
+	
+	Edge(int v,int w)
+	{
+		this.v=v;
+		this.w=w;
+	}
+}
+
+public class p1 {
+	
+	static ArrayList<ArrayList<Edge>> adj;
+	
+	static void prims(int u)
+	{
+		PriorityQueue<Edge> queue=new PriorityQueue<Edge>(4,(a,b)->a.w-b.w);
+		boolean visit[]=new boolean[4];
+		int sum=0;
+		int vertex;
+		int weight;
+		
+		queue.add(new Edge(u,0));
+		
+		while(!queue.isEmpty())
+		{
+			Edge edge=queue.poll();
+			
+			if(!visit[edge.v])
+			{
+				visit[edge.v]=true;
+				sum+=edge.w;
+			}
+			
+			for(int i=0;i<adj.get(edge.v).size();i++)
+			{
+				vertex=adj.get(edge.v).get(i).v;
+				weight=adj.get(edge.v).get(i).w;
+				
+				if(!visit[vertex])
+				{
+					queue.add(new Edge(vertex, weight));
+				}
+			}
+		}
+		System.out.println(sum);
+	}
+	
+	public static void addEdge(int u,int v, int w)
+	{
+		adj.get(u).add(new Edge(v, w));
+		adj.get(v).add(new Edge(u, w));
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		adj=new ArrayList<ArrayList<Edge>>();
+		
+		for(int i=0;i<4;i++)
+		{
+			adj.add(new ArrayList<Edge>());
+		}
+		addEdge(0, 1, 1);
+		addEdge(0, 2, 3);
+		addEdge(0, 3, 4);
+		addEdge(1, 2, 2);
+		addEdge(2, 3, 5);
+		
+		prims(0);
+		
+	}
+
+}
