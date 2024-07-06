@@ -1,0 +1,42 @@
+/*
+https://www.naukri.com/code360/problems/is-subsequence_892991?utm_source=youtube&utm_medium=affiliate&utm_campaign=parikh_youtube&leftPanelTabValue=PROBLEM
+
+Problem statement
+You have been given two strings ‘STR1’ and ‘STR2’.
+
+Your task is to find if ‘STR1’ is a subsequence of ‘STR2’.
+
+A subsequence of a string is a new string that can be derived from the original string by deleting some characters (can be none) without changing the relative ordering of other characters.
+
+*/
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+
+	public static String isSubsequence(String str1, String str2) {    
+    	// Write your code here.
+		int i=0,j=0;	
+
+		while(i<str1.length() && j<str2.length())
+		{
+			if(str1.charAt(i)==str2.charAt(j))
+			{
+				i++;
+				j++;
+			}
+			else{
+				j++;
+			}
+		}
+
+		if(i==str1.length())
+		{
+			return "True";
+		}
+
+		return "False";
+	}
+
+}
