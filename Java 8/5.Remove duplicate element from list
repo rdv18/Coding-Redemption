@@ -1,0 +1,25 @@
+/*
+
+https://github.com/rohitchavan-git/Java-8-Interview-Sample-Coding-Questions/blob/main/README.md
+
+Remove duplicate elements from a list using Java 8 streams
+
+*/
+
+public class p1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		List<Integer> list=Arrays.asList(1,2,3,3,4);
+	
+		Set<Integer> set=list.stream().collect(Collectors.toSet());
+		
+		List<Integer> uniqueList=list.stream().distinct().collect(Collectors.toList());
+		
+		System.out.println(set);
+		System.out.println(uniqueList);
+
+	}
+
+}
