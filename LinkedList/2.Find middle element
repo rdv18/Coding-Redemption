@@ -1,20 +1,22 @@
-Problem Link: https://www.geeksforgeeks.org/problems/finding-middle-element-in-a-linked-list/1?page=1&category=Linked%20List&difficulty=Easy,Medium&sprint=a663236c31453b969852f9ea22507634&sortBy=difficulty
+/*
+https://leetcode.com/problems/middle-of-the-linked-list/description/
+
+*/
 
 
-class Solution
-{
-    int getMiddle(Node head)
-    {
-         // Your code here.
-         Node slow=head;
-         Node fast=head;
-         
-         while(fast!=null && fast.next!=null)
-         {
-             slow=slow.next;
-             fast=fast.next.next;
-         }
-         
-         return slow.data;
+class Solution {
+    public ListNode middleNode(ListNode head) {
+
+        ListNode slow=head;
+        ListNode fast=head;
+
+        while(fast!=null && fast.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+
+        return slow;
+        
     }
 }
