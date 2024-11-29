@@ -32,3 +32,33 @@ class Solution {
         return res;
     }
 }
+
+
+------------------------
+
+with O(1) space:
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+
+        int product = 1;
+        int res[] = new int[nums.length];
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            product *= nums[i];
+            res[i] = product;
+        }
+
+        product = 1;
+
+        for (int i = 0; i < nums.length - 1; i++) {
+
+            res[i] = product * res[i + 1];
+            product *= nums[i];
+        }
+        res[nums.length - 1] = product;
+        return res;
+    }
+}
+
+*/
