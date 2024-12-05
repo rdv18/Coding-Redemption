@@ -6,27 +6,29 @@ https://leetcode.com/problems/keys-and-rooms/description/
 
 class Solution {
 
-    boolean visitedRooms[];
+    boolean visit[];
     int count = 0;
 
-    void dfs(int u, List<List<Integer>> rooms) {
-        visitedRooms[u] = true;
+    void dfs(List<List<Integer>> rooms, int u) {
         for (int i = 0; i < rooms.get(u).size(); i++) {
-            if (!visitedRooms[rooms.get(u).get(i)]) {
-                visitedRooms[rooms.get(u).get(i)] = true;
+            if (!visit[rooms.get(u).get(i)]) {
+                visit[rooms.get(u).get(i)] = true;
                 count++;
-                dfs(rooms.get(u).get(i), rooms);
+                dfs(rooms, rooms.get(u).get(i));
             }
         }
     }
-    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        visitedRooms = new boolean[rooms.size()];
 
-        dfs(0, rooms);
-        if (count + 1 == rooms.size()) {
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+
+        visit = new boolean[rooms.size()];
+        visit[0] = true;
+
+        dfs(rooms, 0);
+
+        if (count == rooms.size() - 1) {
             return true;
         }
-
         return false;
     }
 }
