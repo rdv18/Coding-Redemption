@@ -1,0 +1,96 @@
+/*
+
+https://leetcode.com/problems/binary-tree-right-side-view/description/
+
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+
+class Reserve {
+    TreeNode node;
+    int level;
+
+    Reserve(TreeNode node, int level) {
+        this.node = node;
+        this.level = level;
+    }
+}
+
+class Solution {
+
+    Stack<Reserve> stack;
+
+    public TreeNode nextNode(TreeNode reserveNode, int reserveNodeLevel, int currentLevel) {
+        while (reserveNode != null) {
+            reserveNodeLevel++;
+            if (reserveNode.right != null) {
+                if (reserveNode.left != null) {
+                    stack.add(new Reserve(reserveNode.left, reserveNodeLevel));
+                }
+                reserveNode = reserveNode.right;
+            } else if (reserveNode.left != null) {
+                reserveNode = reserveNode.left;
+            }
+            if (currentLevel == reserveNodeLevel) {
+                return reserveNode;
+            }
+        }
+        return null;
+    }
+
+    public List<Integer> rightSideView(TreeNode root) {
+
+        List<Integer> res = new ArrayList<>();
+
+        if (root == null) {
+            return res;
+        } else {
+            res.add(root.val);
+        }
+        int currentLevel = 0;
+        stack = new Stack<>();
+
+        while (root != null) {
+            if (root.right != null) {
+                currentLevel++;
+                res.add(root.right.val);
+                if (root.left != null) {
+                    stack.add(new Reserve(root.left, currentLevel));
+                }
+                root = root.right;
+            } else if (root.left != null) {
+                currentLevel++;
+                res.add(root.left.val);
+                root = root.left;
+            }
+            if (root.left == null && root.right == null) {
+                if (!stack.isEmpty()) {
+                    Reserve reserve = stack.pop();
+                    if (reserve.level != currentLevel) {
+                        root = nextNode(reserve.node, reserve.level, currentLevel);
+                    } else {
+                        root = reserve.node;
+                    }
+                } else {
+                    root = null;
+                }
+            }
+        }
+        return res;
+
+    }
+}
