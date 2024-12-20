@@ -1,0 +1,55 @@
+/*
+
+https://leetcode.com/problems/odd-even-linked-list/description/
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+
+        ListNode even = null;
+        ListNode res = head;
+        ListNode nextEvenNode = null;
+        ListNode endOfOddNode = null;
+        ListNode headOfEvenNode = null;
+
+        while (head != null) {
+
+            endOfOddNode = head;
+            nextEvenNode = head.next;
+
+            if (head.next != null) {
+                head.next = head.next.next;
+                head = head.next;
+            } else {
+                head = head.next;
+            }
+
+            if (even == null) {
+                even = nextEvenNode;
+                headOfEvenNode = even;
+            } else if (nextEvenNode != null) {
+                even.next = nextEvenNode;
+                even = even.next;
+            } else {
+                even.next = null;
+            }
+        }
+
+        if (endOfOddNode != null) {
+            endOfOddNode.next = headOfEvenNode;
+        }
+
+        return res;
+    }
+}
