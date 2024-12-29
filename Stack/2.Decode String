@@ -1,0 +1,66 @@
+/*
+
+https://leetcode.com/problems/decode-string/description/
+
+*/
+
+
+class Solution {
+
+    public String getRepeatedChars(int n, String s) {
+        String repeatedCharacters = "";
+
+        for (int i = 0; i < n; i++) {
+            repeatedCharacters += s;
+        }
+        return repeatedCharacters;
+    }
+
+    public String decodeString(String s) {
+
+        Stack<Integer> number = new Stack<>();
+        Stack<String> chars = new Stack<>();
+        String temp = "";
+        String res = "";
+        String repeatedCharacters = "";
+        String k = "";
+
+        boolean flag = false;
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (Character.isDigit(c)) {
+                k += c;
+            } else {
+                if (!k.isBlank()) {
+                    number.add(Integer.valueOf(k));
+                    k = "";
+                }
+            }
+            if (c != ']' && !Character.isDigit(c)) {
+                chars.add(String.valueOf(c));
+            } else if (c == ']') {
+                while (!chars.isEmpty() && !chars.peek().equals("[")) {
+                    temp = chars.pop() + temp;
+                }
+
+                if (!chars.isEmpty() && chars.peek().equals("[")) {
+                    chars.pop();
+                }
+
+                if (!number.isEmpty()) {
+                    repeatedCharacters = getRepeatedChars(number.pop(), temp);
+                    chars.add(repeatedCharacters);
+                    temp = "";
+                }
+            }
+        }
+
+        for (String i : chars) {
+            res = res + i;
+        }
+
+        return res;
+    }
+}
