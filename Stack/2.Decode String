@@ -23,23 +23,14 @@ class Solution {
         String temp = "";
         String res = "";
         String repeatedCharacters = "";
-        String k = "";
-
-        boolean flag = false;
+        int num = 0;
+    
 
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
             if (Character.isDigit(c)) {
-                k += c;
-            } else {
-                if (!k.isBlank()) {
-                    number.add(Integer.valueOf(k));
-                    k = "";
-                }
-            }
-            if (c != ']' && !Character.isDigit(c)) {
-                chars.add(String.valueOf(c));
+                num = num * 10 + (c - '0');
             } else if (c == ']') {
                 while (!chars.isEmpty() && !chars.peek().equals("[")) {
                     temp = chars.pop() + temp;
@@ -54,9 +45,14 @@ class Solution {
                     chars.add(repeatedCharacters);
                     temp = "";
                 }
+            } else {
+                chars.add(String.valueOf(c));
+                if (num != 0) {
+                    number.add(num);
+                    num = 0;
+                }
             }
         }
-
         for (String i : chars) {
             res = res + i;
         }
