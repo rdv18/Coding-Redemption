@@ -1,0 +1,53 @@
+/*
+
+https://leetcode.com/problems/increasing-triplet-subsequence/description/
+
+*/
+
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+
+        int big = nums[nums.length - 1];
+        int secondBig = Integer.MIN_VALUE;
+
+        for (int j = nums.length - 2; j >= 0; j--) {
+            big = Math.max(big, nums[j]);
+
+            if (secondBig < nums[j] && nums[j] != big) {
+                secondBig = nums[j];
+            }
+            if (nums[j] < secondBig && nums[j] < big) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+--------------------------------------
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+
+        int smallest[] = new int[nums.length];
+        int largest[] = new int[nums.length];
+        int small = Integer.MAX_VALUE;
+        int big = Integer.MIN_VALUE;
+
+        for (int i = 0; i < nums.length; i++) {
+            small = Math.min(small, nums[i]);
+            smallest[i] = small;
+        }
+
+        for (int j = nums.length - 1; j >= 0; j--) {
+            big = Math.max(big, nums[j]);
+            largest[j] = big;
+        }
+
+        for (int i = 1; i < nums.length - 1; i++) {
+            if (smallest[i - 1] < nums[i] && nums[i] < largest[i + 1]) {
+                return true;
+            }
+        }
+        return false;
+    }
+} 
