@@ -1,0 +1,68 @@
+/*
+
+https://leetcode.com/problems/split-linked-list-in-parts/description/
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+
+    public ListNode[] splitListToParts(ListNode head, int k) {
+        int length = 0, extras = 0, counts = 1, counts1 = 1;
+        ListNode head1 = head,temp;
+        ListNode[] res = new ListNode[k];
+        int i, j = 0;
+
+        while (head != null) {
+            length++;
+            head = head.next;
+        }
+
+        if (length > k) {
+            counts = length / k;
+            extras = length % k;
+        }
+
+        while (j < k) {
+            i = 1;
+            if (extras > 0) {
+                counts1 = counts + 1;
+                extras--;
+            } else {
+                counts1 = counts;
+            }
+
+            if (head1 != null) {
+                while (i != counts1 + 1) {
+                    if (head1 != null) {
+                        if (i == 1) {
+                            res[j] = head1;
+                        }
+                        if (i == counts1) {
+                            temp = head1.next;
+                            head1.next = null;
+                            head1 = temp;
+                        } else {
+                            head1 = head1.next;
+                        }
+                    }
+                    i++;
+                }
+            } else {
+                res[j] = null;
+            }
+            j++;
+        }
+        return res;
+
+    }
+}
