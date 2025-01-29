@@ -1,0 +1,85 @@
+/*
+
+https://leetcode.com/problems/rotting-oranges/description/
+
+*/
+
+class Grid {
+    int u, v;
+
+    Grid(int u, int v) {
+        this.u = u;
+        this.v = v;
+    }
+}
+
+class Solution {
+    int cost[][];
+    int res;
+
+    boolean boundaryCheck(int[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length) {
+            return false;
+        }
+        return true;
+    }
+
+    void bfs(int[][] grid, int i, int j) {
+        Queue<Grid> queue = new LinkedList<>();
+        queue.add(new Grid(i, j));
+        int min = 0;
+
+        int x[] = new int[] { -1, 1, 0, 0 };
+        int y[] = new int[] { 0, 0, -1, 1 };
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            min++;
+            while (size-- > 0) {
+                Grid g = queue.poll();
+
+                for (int k = 0; k < 4; k++) {
+                    if (boundaryCheck(grid, g.u + x[k], g.v + y[k])) {
+                        if (grid[g.u + x[k]][g.v + y[k]] == 1 && min < cost[g.u + x[k]][g.v + y[k]]) {
+                            cost[g.u + x[k]][g.v + y[k]] = min;
+                            queue.add(new Grid(g.u + x[k], g.v + y[k]));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public int orangesRotting(int[][] grid) {
+
+        cost = new int[grid.length][grid[0].length];
+        res = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                cost[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 2) {
+                    bfs(grid, i, j);
+                }
+            }
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 1) {
+                    if (cost[i][j] == Integer.MAX_VALUE) {
+                        return -1;
+                    }
+                    res = Math.max(res, cost[i][j]);
+                }
+            }
+        }
+
+        return res;
+    }
+}
