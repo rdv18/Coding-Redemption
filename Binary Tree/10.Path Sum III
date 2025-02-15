@@ -1,0 +1,54 @@
+/*
+
+https://leetcode.com/problems/path-sum-iii/description/
+
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+
+    int res = 0;
+    long sum = 0L;
+
+    void dfs(TreeNode root, Map<Long, Integer> map, int targetSum) {
+        if (root == null) {
+            return;
+        }
+        sum += root.val;
+
+        res += map.getOrDefault(sum - targetSum, 0);
+
+        map.put(sum, map.getOrDefault(sum, 0) + 1);
+
+        dfs(root.left, map, targetSum);
+        dfs(root.right, map, targetSum);
+
+        map.put(sum, map.get(sum) - 1);
+        sum -= root.val;
+
+    }
+
+    public int pathSum(TreeNode root, int targetSum) {
+
+        Map<Long, Integer> map = new HashMap<>();
+        map.put(0L, 1);
+        dfs(root, map, targetSum);
+
+        return res;
+    }
+}
