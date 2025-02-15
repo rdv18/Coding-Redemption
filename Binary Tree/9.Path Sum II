@@ -4,46 +4,32 @@ https://leetcode.com/problems/path-sum-ii/
 
 */
 
-
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
- */
 class Solution {
 
     List<List<Integer>> res;
 
-    void dfs(TreeNode root, List<Integer> list, int targetSum) {
-        if (root == null) {
-            return;
-        }
-        list.add(root.val);
-        if (root.left == null && root.right == null && targetSum == root.val) {
-            res.add(new ArrayList<>(list));
-        }
-        dfs(root.left, list, targetSum - root.val);
-        dfs(root.right, list, targetSum - root.val);
+    void dfs(TreeNode root, int targetSum, List<Integer> currentPath) {
+        if (root == null) return;
 
-        list.remove(list.size() - 1);
+        currentPath.add(root.val);
+
+        if (root.left == null && root.right == null && (targetSum - root.val) == 0) {
+            res.add(new ArrayList<>(currentPath)); //deep copy
+        }
+
+        dfs(root.left, targetSum - root.val, currentPath);
+        dfs(root.right, targetSum - root.val, currentPath);
+
+        currentPath.remove(currentPath.size() - 1);
     }
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        List<Integer> list = new ArrayList<>();
+
         res = new ArrayList<>();
 
-        dfs(root, list, targetSum);
+        dfs(root, targetSum, new ArrayList<Integer>());
 
         return res;
+
     }
 }
