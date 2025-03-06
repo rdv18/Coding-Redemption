@@ -1,0 +1,36 @@
+/*
+
+https://www.geeksforgeeks.org/problems/longest-palindrome-in-a-string3411/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+*/
+
+class Solution {
+  
+    static String longestPalindrome(String s) {
+        // code here
+        int res = 0;
+        int endIndex = 0;
+
+        StringBuilder s1 = new StringBuilder(s);
+        String s2 = s1.reverse().toString();
+
+        int dp[][] = new int[s.length() + 1][s2.length() + 1];
+
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j < s2.length(); j++) {
+                if (s.charAt(i) == s2.charAt(j)) {
+                    dp[i + 1][j + 1] = dp[i][j] + 1;
+                }
+                int start = j - dp[i + 1][j + 1] + 1;
+                if (res < dp[i + 1][j + 1]) {
+                    if (s2.substring(start, j + 1).equals(s.substring(s.length() - 1 - j, s.length() - start))) //compare window is a mirror
+                    {
+                        res = dp[i + 1][j + 1];
+                        endIndex = j;
+                    }
+                }
+            }
+        }
+        return s2.substring(endIndex - res + 1, endIndex + 1);
+    }
+}
