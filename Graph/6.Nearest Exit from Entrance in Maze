@@ -1,0 +1,66 @@
+/*
+
+https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/description/
+
+*/
+
+class Grid {
+    int x, y;
+
+    Grid(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Solution {
+
+    public boolean boundaryCheck(int i, int j, char[][] maze) {
+        if (i < 0 || i >= maze.length || j < 0 || j >= maze[0].length) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkExit(int i, int j, char[][] maze) {
+        if (i == 0 || i == maze.length - 1 || j == 0 || j == maze[0].length - 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public int nearestExit(char[][] maze, int[] entrance) {
+
+        Queue<Grid> queue = new LinkedList<>();
+        queue.add(new Grid(entrance[0], entrance[1]));
+        int x[] = new int[] { 0, 0, 1, -1 };
+        int y[] = new int[] { 1, -1, 0, 0 };
+        int cost = -1;
+
+        while (!queue.isEmpty()) {
+
+            int size = queue.size();
+            cost++;
+            while (size-- > 0) {
+                Grid grid = queue.poll();
+                int i = grid.x;
+                int j = grid.y;
+
+                if (entrance[0] != i || entrance[1] != j) {
+                    System.out.println(i + " " + j + checkExit(i, j, maze));
+                }
+
+                if (checkExit(i, j, maze) && (i != entrance[0] || j != entrance[1])) {
+                    return cost;
+                }
+                for (int k = 0; k < 4; k++) {
+                    if (boundaryCheck(i + x[k], j + y[k], maze) && maze[i + x[k]][j + y[k]] == '.') {
+                        queue.add(new Grid(i + x[k], j + y[k]));
+                        maze[i + x[k]][j + y[k]] = '+';
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
